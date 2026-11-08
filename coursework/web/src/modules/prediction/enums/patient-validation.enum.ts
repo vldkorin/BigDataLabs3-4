@@ -1,0 +1,14 @@
+enum PatientValidation {
+  AGE_MIN = 1,
+  AGE_MAX = 120,
+  BLOOD_PRESSURE_MIN = 50,
+  BLOOD_PRESSURE_MAX = 250,
+  CHOLESTEROL_MIN = 50,
+  CHOLESTEROL_MAX = 700,
+  HEART_RATE_MIN = 40,
+  HEART_RATE_MAX = 250,
+  ST_DEPRESSION_MIN = -5,
+  ST_DEPRESSION_MAX = 10
+}
+
+export { PatientValidation };

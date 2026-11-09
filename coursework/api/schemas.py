@@ -51,3 +51,4 @@ class PatientInput(BaseModel):
 
 class PredictionResponse(BaseModel):
     risk: RiskLevel
+    probability: float = Field(ge=0, le=1)

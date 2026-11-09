@@ -3,7 +3,7 @@ from pathlib import Path
 import joblib
 import pandas as pd
 
-from api.schemas import PatientInput, RiskLevel
+from api.schemas import PatientInput, PredictionResponse, RiskLevel
 
 MODEL_PATH = Path(__file__).resolve().parent.parent / 'models' / 'heart_model.joblib'
 
@@ -12,7 +12,7 @@ class Predictor:
     def __init__(self, model_path):
         self.model = joblib.load(model_path)
 
-    def predict(self, patient: PatientInput) -> RiskLevel:
+    def predict(self, patient: PatientInput) -> PredictionResponse:
         features = pd.DataFrame([{
             'age': patient.age,
             'sex': patient.sex.value,
@@ -27,8 +27,12 @@ class Predictor:
             'slope': patient.st_slope.value,
         }])
         prediction = self.model.predict(features)[0]
+        probability = self.model.predict_proba(features)[0][1]
 
-        return RiskLevel.HIGH if prediction == 1 else RiskLevel.LOW
+        return PredictionResponse(
+            risk=RiskLevel.HIGH if prediction == 1 else RiskLevel.LOW,
+            probability=float(probability),
+        )
 
 
 predictor = Predictor(MODEL_PATH)

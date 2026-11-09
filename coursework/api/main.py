@@ -18,4 +18,4 @@ app.add_middleware(
 
 @app.post('/predict', response_model=PredictionResponse)
 def predict(patient: PatientInput):
-    return PredictionResponse(risk=predictor.predict(patient))
+    return predictor.predict(patient)

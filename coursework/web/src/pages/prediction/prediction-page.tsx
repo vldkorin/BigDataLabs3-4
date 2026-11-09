@@ -16,7 +16,10 @@ const PredictionPage = () => {
         }}
       />
       {predictRisk.data ? (
-        <PredictionResult risk={predictRisk.data.risk} />
+        <PredictionResult
+          probability={predictRisk.data.probability}
+          risk={predictRisk.data.risk}
+        />
       ) : null}
       {predictRisk.error ? (
         <PredictionError message={predictRisk.error.message} />
